@@ -5,20 +5,33 @@ import './index.css';
 
 
 
-// Game component
+// Calcualtor component
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            output: '0',
+        }
+    }
+
+    handleClick(symbol) {
+        
     }
 
     render() {
+        const outputText = this.state.output;
+
         return (
             <div className = "game">
                 <div className = "window">
-                    <Window/>
+                    <Window
+                        output = {outputText}
+                    />
                 </div>
                 <div className = 'input'>
-                    <Input/>
+                    <Input
+                        onClick = {(symbol) => this.handleClick(symbol)}
+                    />
                 </div>
             </div>
         );
@@ -28,15 +41,21 @@ class Calculator extends React.Component {
 
 // PlayArea component
 class Window extends React.Component {
-    constructor(props) {
-        super(props);
+    renderOutput(i) {
+        return (
+            <p>
+                {i}
+            </p>
+        )
     }
 
     render() {
+        const outputText = this.props.output;
+
         return (
             <div>
-
-            </div>
+                {this.renderOutput(outputText)}
+            </div>  
         )
     }
 }
@@ -50,6 +69,7 @@ class Input extends React.Component {
     renderButton(symbol) {
         return (
             <Button
+                value = {symbol}
                 onClick = {() => this.props.onClick}
             />
         )
