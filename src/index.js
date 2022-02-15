@@ -10,21 +10,37 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            input: '_',
             output: '0',
+
         }
     }
 
     handleClick(symbol) {
-        
+        const currentOutput = this.state.output;
+
+        if (symbol === 'AC') {
+            this.setState({
+                output: '0',
+            })
+        }
+
+        if (typeof symbol === 'number') {
+            this.setState({
+                output: currentOutput + symbol,
+            })
+        }
     }
 
     render() {
+        const inputText = this.state.input;
         const outputText = this.state.output;
 
         return (
-            <div className = "game">
+            <div className = "calculator">
                 <div className = "window">
                     <Window
+                        input = {inputText}
                         output = {outputText}
                     />
                 </div>
@@ -41,19 +57,29 @@ class Calculator extends React.Component {
 
 // PlayArea component
 class Window extends React.Component {
-    renderOutput(i) {
+    renderInput(input) {
         return (
-            <p>
-                {i}
+            <p className = "input-line">
+                {input}
+            </p>
+        )
+    }
+
+    renderOutput(output) {
+        return(
+            <p className = "output-line">
+                {output}
             </p>
         )
     }
 
     render() {
+        const inputText = this.props.input;
         const outputText = this.props.output;
 
         return (
             <div>
+                {this.renderInput(inputText)}
                 {this.renderOutput(outputText)}
             </div>  
         )
@@ -70,7 +96,7 @@ class Input extends React.Component {
         return (
             <Button
                 value = {symbol}
-                onClick = {() => this.props.onClick}
+                onClick = {() => this.props.onClick(symbol)}
             />
         )
     }
