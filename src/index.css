@@ -1,8 +1,8 @@
 :root {
-    --gameWidth: 500px;
-    --gameHeigth: 750px;
-    --play-width: calc(var(--gameWidth) - 100px);
-    --play-height: calc(var(--gameHeigth) - 150px);
+    --deviceWidth: 500px;
+    --deviceHeigth: 750px;
+    --calcWindow-width: calc(var(--deviceWidth) - 100px);
+    --calcWindow-height: calc(var(--deviceHeigth) - 650px);
 }
 
 .game-width {
@@ -17,15 +17,26 @@ html {
 }
 
 .game {
-    width: var(--gameWidth);
-    height: var(--gameHeigth);
+    width: var(--deviceWidth);
+    height: var(--deviceHeigth);
     border: 5px solid black;
+    border-radius: 50px;
 }
 
-.play-area {
+.window {
     margin: auto;
     margin-top: 30px;
-    width: var(--play-width);
-    height: var(--play-height);
+    width: var(--calcWindow-width);
+    height: var(--calcWindow-height);
     border: 2px solid black;
+}
+
+.input {
+    margin: auto;
+    margin-top: 30px;
+    width: var(--calcWindow-width);
+}
+
+.button {
+    
 }
