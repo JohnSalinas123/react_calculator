@@ -5,10 +5,6 @@
     --calcWindow-height: calc(var(--deviceHeigth) - 650px);
 }
 
-.game-width {
-    
-}
-
 html {
     height: 100%;
     display: flex;
@@ -16,20 +12,29 @@ html {
     align-items: center;
 }
 
-.game {
+/** MAIN CALCULATOR SECTION **/
+
+.calculator {
     width: var(--deviceWidth);
     height: var(--deviceHeigth);
     border: 5px solid black;
     border-radius: 50px;
 }
 
+/** WINDOW SECTION **/
+
 .window {
     margin: auto;
-    margin-top: 30px;
+    margin-top: 50px;
     width: var(--calcWindow-width);
     height: var(--calcWindow-height);
-    border: 2px solid black;
+    border: 2px solid black;    
+    font-size: 30px;
 }
+
+
+
+/** INPUT SECTION **/
 
 .input {
     margin: auto;
@@ -50,4 +55,6 @@ html {
     width: 70px;
     height: 70px;
     border-radius: 20px;
+    font-size: x-large;
+    font-weight: 500;
 }
