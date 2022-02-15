@@ -6,7 +6,7 @@ import './index.css';
 
 
 // Game component
-class Game extends React.Component {
+class Calculator extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -14,8 +14,11 @@ class Game extends React.Component {
     render() {
         return (
             <div className = "game">
-                <div className = "play-area">
-                    <PlayArea/>
+                <div className = "window">
+                    <Window/>
+                </div>
+                <div className = 'input'>
+                    <Input/>
                 </div>
             </div>
         );
@@ -24,7 +27,7 @@ class Game extends React.Component {
 }
 
 // PlayArea component
-class PlayArea extends React.Component {
+class Window extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -32,23 +35,75 @@ class PlayArea extends React.Component {
     render() {
         return (
             <div>
-                
+
             </div>
         )
     }
 }
 
-// Shape Component
-class Shape extends React.Component {
+// Input component
+class Input extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
+    renderButton(symbol) {
+        return (
+            <Button
+                onClick = {() => this.props.onClick}
+            />
+        )
+    }
 
+    render() {
+        return (
+            <div>
+                <div className = "input-row">
+                    {this.renderButton(7)}
+                    {this.renderButton(8)}
+                    {this.renderButton(9)}
+                    {this.renderButton('Del')}
+                    {this.renderButton('AC')}
+                </div>
+                <div className = "input-row">
+                    {this.renderButton(4)}
+                    {this.renderButton(5)}
+                    {this.renderButton(6)}
+                    {this.renderButton('X')}
+                    {this.renderButton('/')}
+                </div>
+                <div className = "input-row">
+                    {this.renderButton(1)}
+                    {this.renderButton(2)}
+                    {this.renderButton(3)}
+                    {this.renderButton('+')}
+                    {this.renderButton('-')}
+                </div>
+                <div className = "input-row">
+                    {this.renderButton(0)}
+                    {this.renderButton('.')}
+                    {this.renderButton('EXP')}
+                    {this.renderButton('Ans')}
+                    {this.renderButton('=')}
+                </div>
+            </div>
+        )
+    }
+}
 
+// Button Component
+function Button(props) {
+    return (
+        <button className = "button" onClick = {props.onClick}>
+            {props.value}
+        </button>
+    )
 }
 
 // ===================================
 
 reactDom.render(
-    <Game />,
+    <Calculator />,
     document.getElementById('root')
 );
 
