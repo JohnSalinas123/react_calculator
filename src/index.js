@@ -1,3 +1,4 @@
+import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import reactDom from 'react-dom';
 import ReactDOM from 'react-dom';
@@ -12,7 +13,9 @@ class Calculator extends React.Component {
         this.state = {
             input: '_',
             output: '0',
-
+            symbolExists: false,
+            symbolIndex: '',
+            currentOp: '',
         }
     }
 
@@ -45,7 +48,16 @@ class Calculator extends React.Component {
                 }
                 break;
 
+            case '=':
+                if (this.state.symbolExists) {
+                    this.calculateOutput();
+                }
+                break;
+
             default:
+                if (!Number.isInteger(symbol)) {
+                    break;
+                }
                 if (currentInput.length > 20) {
                     return
                 }
@@ -59,11 +71,68 @@ class Calculator extends React.Component {
                         input: currentInput + symbol,
                     });
                 }
-                
-               
 
         }
+
+        if (symbol === 'x' || symbol === '/' || symbol === '+' || symbol === '-' || symbol === '^') {
+            if (this.state.symbolExists) {
+                this.replaceSymbol(symbol);
+            } else {
+                const symbolLocation = currentInput.length;
+                this.setState({
+                    input: currentInput + symbol,
+                    symbolExists: true,
+                    symbolIndex: symbolLocation,
+                    currentOp: symbol,
+                })
+            }
+        }
         
+    }
+
+    calculateOutput() {
+        const currentInput = this.state.input.slice();
+        const symbolIndex = this.state.symbolIndex;
+        const operation = this.state.currentOp
+        let num1 = parseInt(currentInput.slice(0,symbolIndex));
+        let num2 = parseInt(currentInput.slice(symbolIndex + 1, currentInput.length));
+        let output = 0;
+
+        switch(operation) {
+            case 'x':
+                output = num1 * num2;
+                break;
+            case '/':
+                output = num1/num2;
+                break;
+            case '+':
+                output = num1 + num2;
+                break;
+            case '-':
+                output = num1 - num2;
+                break;
+            case '^':
+                output = Math.pow(num1,num2);
+                break;
+        }
+
+        this.setState({
+            input: '_',
+            output: output,
+            symbolExists: false,
+            symbolIndex: '',
+            currentOp: '',
+        })
+
+    }
+
+    replaceSymbol(symbol) {
+        const currentInput = String(this.state.input).slice();
+        const symbolIndex = this.state.symbolIndex;
+        const newInput = currentInput.slice(0,symbolIndex) + symbol + currentInput.slice(symbolIndex + 1, currentInput.length);
+        this.setState({
+            input: newInput,
+        })
     }
 
     render() {
@@ -149,7 +218,7 @@ class Input extends React.Component {
                     {this.renderButton(4)}
                     {this.renderButton(5)}
                     {this.renderButton(6)}
-                    {this.renderButton('X')}
+                    {this.renderButton('x')}
                     {this.renderButton('/')}
                 </div>
                 <div className = "button-row">
@@ -162,7 +231,7 @@ class Input extends React.Component {
                 <div className = "button-row">
                     {this.renderButton(0)}
                     {this.renderButton('.')}
-                    {this.renderButton('EXP')}
+                    {this.renderButton('^')}
                     {this.renderButton('Ans')}
                     {this.renderButton('=')}
                 </div>
