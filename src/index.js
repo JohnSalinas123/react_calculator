@@ -17,19 +17,53 @@ class Calculator extends React.Component {
     }
 
     handleClick(symbol) {
-        const currentOutput = this.state.output;
+        const currentInput = String(this.state.input).slice();
+        
+        switch (symbol) {
+            case 'Del':
 
-        if (symbol === 'AC') {
-            this.setState({
-                output: '0',
-            })
-        }
+                if (currentInput.length === 1) {
+                        this.setState({
+                            input: '_'
+                        })
+                } else if (currentInput != '_') {
+                    let inputSize = currentInput.length;
+                        this.setState({
+                        input: currentInput.slice(0,inputSize-1)
+                    });   
+                } 
+                break;
+            case 'AC':
+                this.setState({
+                    input: '_'
+                });
+                break;
 
-        if (typeof symbol === 'number') {
-            this.setState({
-                output: currentOutput + symbol,
-            })
+            case 'ANS':
+                if (currentInput.length > 20) {
+                    return
+                }
+                break;
+
+            default:
+                if (currentInput.length > 20) {
+                    return
+                }
+
+                if (currentInput === '_') {
+                    this.setState({
+                        input: symbol,
+                    });
+                } else {
+                    this.setState({
+                        input: currentInput + symbol,
+                    });
+                }
+                
+               
+
         }
+        
     }
 
     render() {
@@ -104,28 +138,28 @@ class Input extends React.Component {
     render() {
         return (
             <div>
-                <div className = "input-row">
+                <div className = "button-row">
                     {this.renderButton(7)}
                     {this.renderButton(8)}
                     {this.renderButton(9)}
                     {this.renderButton('Del')}
                     {this.renderButton('AC')}
                 </div>
-                <div className = "input-row">
+                <div className = "button-row">
                     {this.renderButton(4)}
                     {this.renderButton(5)}
                     {this.renderButton(6)}
                     {this.renderButton('X')}
                     {this.renderButton('/')}
                 </div>
-                <div className = "input-row">
+                <div className = "button-row">
                     {this.renderButton(1)}
                     {this.renderButton(2)}
                     {this.renderButton(3)}
                     {this.renderButton('+')}
                     {this.renderButton('-')}
                 </div>
-                <div className = "input-row">
+                <div className = "button-row">
                     {this.renderButton(0)}
                     {this.renderButton('.')}
                     {this.renderButton('EXP')}
