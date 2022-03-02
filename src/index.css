@@ -5,6 +5,11 @@
     --calcWindow-height: calc(var(--deviceHeigth) - 650px);
 }
 
+@font-face {
+    font-family: digital-7;
+    src: url(/resources/digital-7\ \(mono\).ttf);
+}
+
 html {
     height: 100%;
     display: flex;
@@ -19,6 +24,7 @@ html {
     height: var(--deviceHeigth);
     border: 5px solid black;
     border-radius: 50px;
+    background-color: #45b6d6;
 }
 
 /** WINDOW SECTION **/
@@ -30,6 +36,25 @@ html {
     height: var(--calcWindow-height);
     border: 2px solid black;    
     font-size: 30px;
+}
+
+.input-line {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 40px;
+    font-family: digital-7;
+}
+
+.output-line {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    text-align: right;
+    font-size: 40px;
+    font-family: digital-7;
 }
 
 
@@ -44,7 +69,7 @@ html {
     width: var(--calcWindow-width);
 }
 
-.input-row {
+.button-row {
     display: flex;
     width: var(--calcWindow-width);
     justify-content: space-between;
